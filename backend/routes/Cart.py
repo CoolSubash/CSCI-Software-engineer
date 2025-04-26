@@ -6,6 +6,8 @@ from models.Cart import Cart
 from models.CartItem import CartItem
 from models.Product import Product
 cart_bp = Blueprint('cart', __name__)
+
+
 @cart_bp.route("", methods=["POST"])
 @jwt_required()
 def add_to_cart():
@@ -13,21 +15,21 @@ def add_to_cart():
         claims = get_jwt()
         user_id = claims['sub']['id']
         user_role = claims['sub']['role']
-        
+
         cart = Cart.query.filter_by(user_id=user_id).first()
         if not cart:
             cart = Cart(user_id=user_id)
             db.session.add(cart)
             db.session.commit()
-        
+
         data = request.get_json()
         print(data)
         product_id = data['product_id']
         quantity = data['product_quantity']
-        
-        exist_cart_item = CartItem.query.filter_by(cart_id=cart.cart_id, product_id=product_id).first()
-        
-        if exist_cart_item:
+
+        if exist_cart_item := CartItem.query.filter_by(
+            cart_id=cart.cart_id, product_id=product_id
+        ).first():
             exist_cart_item.quantity += 1
         else:
             cart_item = CartItem(
@@ -36,11 +38,11 @@ def add_to_cart():
                 quantity=quantity
             )
             cart.cart_details.append(cart_item)
-        
+
         db.session.commit()
-        
+
         return jsonify({"message": "Product has been added to Cart"}), 200
-        
+
 
     except Exception as e:
         db.session.rollback()
