@@ -29,5 +29,4 @@ class CustomerOrder(db.Model):
         return f"<Order {self.id} | User {self.user_id} | Total Price {self.total_price} | Created At {self.created_at}>"
 
 
-   
     
