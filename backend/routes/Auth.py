@@ -6,13 +6,27 @@ from extension import db, bcrypt
 from sqlalchemy.exc import IntegrityError
 from flask_jwt_extended import create_access_token
 from flask_mail import Mail, Message
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import or_
 import secrets
 from datetime import datetime, timedelta
+
 auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/signup', methods=['POST'])
 def signup():
+    
+    """Registers a new user.
+
+    This endpoint handles user registration, validating input, creating user records in the database,
+    and returning a success or error message. It assumes the existence of `User` and `UserDetails`
+    database models.
+     
+    """
+    
+    
     data = request.get_json()
+   
 
     try:
         # Extract user-related data
@@ -40,14 +54,22 @@ def signup():
             return jsonify({"error": "Invalid role. Valid roles are: Customer, Seller, Admin."}), 400
         
         # Check if username, email, or phone number already exists
-        if User.query.filter_by(username=username).first():
-            return jsonify({"error": "Username already exists."}), 400
         
-        if User.query.filter_by(email=email).first():
-            return jsonify({"error": "Email already exists."}), 400
+        existing_user = User.query.outerjoin(UserDetails).filter(or_(
+            User.username == username,
+            User.email == email,
+            UserDetails.phone_number == phone_number
+        )).first()
         
-        if UserDetails.query.filter_by(phone_number=phone_number).first():
-            return jsonify({"error": "Phone number already exists."}), 400
+        
+        
+        if existing_user:
+            if existing_user.username == username:
+                return jsonify({"message": "Username already exists."}), 409
+            if existing_user.email == email:
+                return jsonify({"message": "Email already exists."}), 409
+            if existing_user.user_details and existing_user.user_details.phone_number == phone_number:
+                return jsonify({"message": "Phone number already exists."}), 409
 
         # Hash the password
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
@@ -86,7 +108,16 @@ def signup():
     except Exception as e:
         db.session.rollback()  # Rollback for any other exceptions
         return jsonify({"error": str(e)}), 500
+    
+    
+    
+    
+    
 # Route to generate and send OTP to user's email
+
+
+
+
 @auth_bp.route('/verify-otp', methods=['POST'])
 def verify_otp():
     data = request.get_json()

@@ -7,6 +7,7 @@ from models.OrderItem import OrderItem
 from models.Product import Product
 from models.CustomerOrder import OrderStatus
 import stripe
+import os
 from sqlalchemy.orm import joinedload
 order_bp = Blueprint('order', __name__)
 
@@ -137,7 +138,7 @@ def get_order_by_id():
             "price": item.price,
             "product_id": item.product.product_id,  # Access related Product's id
             "product_name": item.product.name,      # Access related Product's name
-            "product_price": item.product.price    # Access related Product's price
+            "product_price": item.product.price,   # Access related Product's price
             "product_image":item.product.product_image
             
         } for item in order_items]
