@@ -38,6 +38,7 @@ function Login() {
         // Store token in sessionStorage
         sessionStorage.setItem('accessToken', data.access_token);
         alert('Login successful!');
+        window.location.href = '/'
         // Redirect or update app state here
       }
     } catch (err) {
@@ -47,7 +48,7 @@ function Login() {
 
   const handleRegisterClick = () => {
     // Redirect to register page
-    window.location.href = '/register';
+    window.location.href = '/signup';
     // If you're using React Router, you could use:
     // history.push('/register');
   };

@@ -4,14 +4,13 @@ import Home from './pages/Home/Home';
 import SignIn from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 
-
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />  {/* Default home route */}
-          <Route path="signin" element={<SignIn />} />
+          <Route index element={<Home />} />  
+         <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
         </Route>
       </Routes>
