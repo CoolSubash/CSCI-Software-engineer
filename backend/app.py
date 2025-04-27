@@ -1,6 +1,7 @@
 from flask import Flask
 from config.config import Config, TestConfig
 from extension import db, bcrypt, jwt
+from flask_cors import CORS  # <-- import CORS
 
 def createApp(config_class=Config):
     app = Flask(__name__)  # Create the Flask app using the factory function
@@ -9,6 +10,7 @@ def createApp(config_class=Config):
     db.init_app(app)   # Initialize the database with the app
     bcrypt.init_app(app)
     jwt.init_app(app)
+    CORS(app)  # <-- Add CORS initialization here (Allow all origins)
     
     # Register blueprints
     from routes.Auth import auth_bp
