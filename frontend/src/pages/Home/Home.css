@@ -1,0 +1,331 @@
+/* Carousel Container */
+
+
+.carousel-container {
+    width: 100%;
+    height: 80vh;
+    position: relative;
+    overflow: hidden;
+    
+    font-family: "poppins", sans-serif;
+  }
+  
+  /* Carousel */
+  .carousel {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    position: relative;
+  }
+  
+  /* Individual Slide */
+  .carousel-slide {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  /* Active Slide */
+  .carousel-slide.active {
+    opacity: 1;
+    z-index: 1;
+  }
+  
+  /* Carousel Content (Title, Description, Button) */
+  .carousel-content {
+    position: absolute;
+    bottom: 20%;
+    left: 10%;
+    color: rgb(22, 178, 168);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  }
+  
+  .carousel-content h2 {
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .carousel-content p {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .shop-now-btn {
+    padding: 10px 20px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .shop-now-btn:hover {
+    background-color: #ff3b2e;
+  }
+  
+  /* Carousel Buttons (Prev/Next) */
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 10px;
+    transition: background 0.3s;
+  }
+  
+  .carousel-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  .carousel-btn.prev {
+    left: 20px;
+  }
+  
+  .carousel-btn.next {
+    right: 20px;
+  }
+  
+  /* Carousel Dots */
+  .carousel-dots {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    bottom: 4%;
+    left: 50%;
+    
+  }
+  
+   
+  .dot {
+    display: block;
+    width: 12px;
+    height: 12px;
+    background: rgb(54, 49, 49);
+    border-radius: 50%;
+    z-index:100;
+    cursor: pointer;
+    opacity: 0.6;
+    /* transition: opacity 0.3s; */
+  }
+  
+  .dot.active {
+    opacity: 1;
+    color: black;
+  }
+  
+
+  /* Recent Product Section */
+
+  .products-section{
+    margin: 40px 0px ;
+   
+  }
+
+  .section-header h2 {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .section-header p {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .products-slider{
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 0px 20px;
+   
+   
+  }
+
+  .view-more-container{
+    text-align: center;
+    margin-top: 20px;
+  }
+  .view-more-btn {
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+  }
+  /* Ensure the pagination container is positioned correctly */
+  
+ 
+  /* feature */
+
+  .featured-banner {
+    background-image: url('https://image.hm.com/assets/hm/60/d4/60d40808d0635af51439483ee88e43d11c3b18be.jpg?imwidth=2160');
+    background-size: cover; /* Cover the whole section */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Don't repeat */
+    padding: 100px 20px; /* Top/Bottom padding and a little left/right padding */
+    text-align: center; /* Center the text */
+    color: white; /* Make text white for better visibility */
+    position: relative;
+  }
+  
+  .banner-content {
+    max-width: 600px;
+    margin: 0 auto;
+   
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .banner-content h2 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+  
+  .banner-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .banner-btn {
+    background-color: #ff5722; /* Nice orange button */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+  }
+  
+  .banner-btn:hover {
+    background-color: #e64a19; /* Darker orange on hover */
+  }
+  .featured-banner {
+    background-image: url('https://image.hm.com/assets/hm/60/d4/60d40808d0635af51439483ee88e43d11c3b18be.jpg?imwidth=2160');
+    background-size: cover; /* Cover the whole section */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Don't repeat */
+    padding: 200px 20px; /* Top/Bottom padding and a little left/right padding */
+    text-align: center; /* Center the text */
+    color: white; /* Make text white for better visibility */
+    position: relative;
+  }
+  
+  .banner-content {
+    max-width: 600px;
+    margin: 0 auto;
+   
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .banner-content h2 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+  
+  .banner-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .banner-btn {
+    background-color: #ff5722; /* Nice orange button */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+  }
+  
+  .banner-btn:hover {
+    background-color: #e64a19; /* Darker orange on hover */
+  }
+  
+
+
+
+
+  /* --News Letter section */
+
+  .newsletter-section {
+    background-color: #f7f7f7;
+    padding: 80px 20px;
+    text-align: center;
+  }
+  
+  .newsletter-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .newsletter-container h3 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .newsletter-container p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: #666;
+  }
+  
+  .newsletter-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Bigger gap between input and button */
+    flex-wrap: wrap;
+  }
+  
+  .newsletter-form input[type="email"] {
+    padding: 10px 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 400px; /* Made input smaller */
+    max-width: 100%;
+  }
+  
+  .newsletter-form button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .newsletter-form button:hover {
+    background-color: #e64a19;
+  }
+  
