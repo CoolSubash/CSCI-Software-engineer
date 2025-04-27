@@ -64,50 +64,7 @@
 
 
   /* feature banner */
-
-  .featured-banner {
-    background-image: url('https://image.hm.com/assets/hm/60/d4/60d40808d0635af51439483ee88e43d11c3b18be.jpg?imwidth=2160');
-    background-size: cover; /* Cover the whole section */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Don't repeat */
-    padding: 100px 20px; /* Top/Bottom padding and a little left/right padding */
-    text-align: center; /* Center the text */
-    color: white; /* Make text white for better visibility */
-    position: relative;
-  }
-  
-  .banner-content {
-    max-width: 600px;
-    margin: 0 auto;
-   
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  .banner-content h2 {
-    font-size: 3.5rem;
-    margin-bottom: 10px;
-    color: #ffffff;
-  }
-  
-  .banner-content p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-  }
-  
-  .banner-btn {
-    background-color: #ff5722; /* Nice orange button */
-    color: white;
-    padding: 12px 24px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 10px;
-    display: inline-block;
-    transition: background-color 0.3s ease;
-  }
-  
-  .banner-btn:hover {
-    background-color: #e64a19; /* Darker orange on hover */
-  }
+.feature{
+    color: red;
+}
   
