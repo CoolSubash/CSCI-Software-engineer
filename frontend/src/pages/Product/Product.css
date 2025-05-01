@@ -1,0 +1,123 @@
+/* Product Page Layout */
+.product-page {
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 10px;
+  }
+  
+  /* Left Sidebar (for filters) */
+  .product-page .left-sidebar {
+    width: 20%;
+    padding-right: 10px;
+    
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Right Sidebar (for product listing) */
+  .product-page .right-sidebar {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+  
+  /* Grid Layout for Product Cards */
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cards on large screens */
+    gap: 20px;
+  }
+
+
+
+
+
+
+
+/* Search bar at the top (optional) */
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+}
+.search-bar button {
+  padding: 10px 15px; 
+  background-color: #21801a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 8px 10px;
+}
+
+/* Container for the price filter bar */
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Input styles */
+.filter-bar input[type="number"] {
+  padding: 10px;
+  width: 120px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border 0.2s ease-in-out;
+}
+
+.filter-bar input[type="number"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Button styles */
+.filter-bar button {
+  padding: 10px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.filter-bar button:hover {
+  background-color: #0056b3;
+}
+
+
+  
+  /* Medium screens (3 cards) */
+  @media (max-width: 1024px) {
+    .product-list {
+      grid-template-columns: repeat(3, 1fr); /* 3 cards on medium screens */
+    }
+  }
+  
+  /* Small screens (1 card) */
+  @media (max-width: 768px) {
+    .product-list {
+      grid-template-columns: 1fr; /* 1 card on small screens */
+    }
+  }
+  
+  /* Styling for Product Cards */
+  
+  

@@ -82,6 +82,7 @@ def view_cart():
             product_image=product.product_image
             
             cart_temp = {
+                'product_id': product.product_id,
                 'cart_item_id':item.cart_id,
                 'name': product.name,
                 'price': product.price,
@@ -125,30 +126,28 @@ def delete_cart_item(cart_item_id):
 @jwt_required()
 def update_cart_item(cart_item_id):
     try:
-        claims = get_jwt()
-        user_id = claims['sub']['id']
-        
-        # Find the cart item
-        cart_item = CartItem.query.filter_by(cart_item_id=cart_item_id, cart_id=user_id).first()
-        
+        user_id = get_jwt()['sub']['id']
+
+        # Step 1: Find the cart that belongs to the user
+        cart = Cart.query.filter_by(user_id=user_id).first()
+        if not cart:
+            return jsonify({"message": "Cart not found"}), 404
+
+        # Step 2: Find the cart item in that cart
+        cart_item = CartItem.query.filter_by(cart_item_id=cart_item_id, cart_id=cart.cart_id).first()
         if not cart_item:
             return jsonify({"message": "Cart item not found"}), 404
-        
+
         data = request.get_json()
-        
-        # Get the new quantity from the request
         new_quantity = data.get("quantity")
-        
         if new_quantity <= 0:
             return jsonify({"message": "Quantity must be greater than 0"}), 400
-        
-        # Update the cart item with the new quantity
+
         cart_item.quantity = new_quantity
         db.session.commit()
-        
+
         return jsonify({"message": "Cart item updated successfully"}), 200
-    
+
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": "Internal Error", "message": str(e)}), 500
-

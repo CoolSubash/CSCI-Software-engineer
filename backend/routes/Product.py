@@ -88,18 +88,45 @@ def add_products():
 
 
 
+from flask import request
+
 @product_bp.route('', methods=['GET'])
 def get_all_products():
     try:
-        products=Product.query.all()
-       
+        search = request.args.get('search', '')  # Get 'search' from URL query parameters
+        print(search)
+        if search:
+            # Case-insensitive search on product name (you can expand to brand or description)
+            products = Product.query.filter(Product.name.ilike(f"%{search}%")).all()
+        else:
+            products = Product.query.all()
+
+        products_list = [product.to_dict() for product in products]
+
+        return jsonify({
+            "message": "Product fetch Successfully",
+            "products": products_list
+        })
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            "error": "Internal Server Error",
+            "message": str(e)
+        }), 500
+   
+
+@product_bp.route('/bestselling', methods=['GET'])
+def get_bestselling_products():
+    try:
+        # Fetch products with price greater than 150 and order them by a "bestseller" criterion (e.g., rating or sales volume).
+        bestselling_products = Product.query.filter(Product.price > 50).limit(10).all()
         
-        products_list=[]
-        for product in  products:
-            products_list.append(product.to_dict())
+        bestselling_list = []
+        for product in bestselling_products:
+            bestselling_list.append(product.to_dict())
         
-        return jsonify({"message":"Product fetch Successfully","products": products_list})
-        
+        return jsonify({"message": "Bestselling Products fetched successfully", "products": bestselling_list})
     
     except Exception as e:
         db.session.rollback()
@@ -107,8 +134,25 @@ def get_all_products():
             "error": "Internal Server Error",
             "message": str(e)
         }), 500
+
+@product_bp.route('/recent', methods=['GET'])
+def get_recent_products():
+    try:
+        # Fetch the most recent 10 products based on the created date (assuming there's a 'created_at' field in Product).
+        recent_products = Product.query.order_by(Product.created_at.desc()).limit(10).all()
         
+        recent_list = []
+        for product in recent_products:
+            recent_list.append(product.to_dict())
+        
+        return jsonify({"message": "Recent Products fetched successfully", "products": recent_list})
     
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            "error": "Internal Server Error",
+            "message": str(e)
+        }), 500
 
 
 @product_bp.route('/<int:product_id>', methods=['GET'])
@@ -300,3 +344,27 @@ def delete_comment(comment_id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": "Internal Error", "message": str(e)})
+
+
+@product_bp.route('/comments/<int:product_id>', methods=['GET'])
+def get_comments_for_product(product_id):
+    try:
+        comments = ProductComment.query.filter_by(product_id=product_id).order_by(ProductComment.created_at.desc()).all()
+        comment_list = []
+
+        for comment in comments:
+            comment_data = {
+                "comment_id": comment.comment_id,
+                "content": comment.content,
+                "created_at": comment.created_at,
+                "user": {
+                    "user_id": comment.user.user_id,
+                    "username": comment.user.username
+                }
+            }
+            comment_list.append(comment_data)
+
+        return jsonify({"comments": comment_list}), 200
+
+    except Exception as e:
+        return jsonify({"error": "Internal Server Error", "message": str(e)}), 500
