@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -7,11 +8,15 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import "./Home.css";
 
 const Home = () => {
-  const [recentProducts, setRecentProducts] = useState([]);
-  const [topRatedProducts, setTopRatedProducts] = useState([]);
+  const [bestselling, setBestselling] = useState([]);
+  const [recent, setRecent] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const handleViewDetails = (productId) => {
+    navigate(`/product/${productId}`);
+  };
 
   // Carousel images - replace with your actual product images
   const carouselImages = [
@@ -37,59 +42,42 @@ const Home = () => {
     },
   ];
 
-  // Auto slide effect can be implemented using setInterval, but it's commented out for now
-  // useEffect(() => {
-  //   // Carousel auto-slide effect
+  useEffect(() => {
+   
 
-  //   const timer=setInterval(()=>{
-  //     setCurrentSlide((prevSlide)=>{
-  //       return prevSlide === carouselImages.length - 1 ? 0 : prevSlide + 1;
-  //     })
-  //   },5000)
+    // Fetch bestselling products (price greater than 150)
+    const fetchBestsellingProducts = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/api/v1/products/bestselling");
+        const data = await response.json();
+        console.log(data);
+        setBestselling(data.products);
 
-  //   return () => clearInterval(timer);
-  // }, [carouselImages.length]);
+        setIsLoading(false)
+      } catch (error) {
+        console.error("Error fetching bestselling products:", error);
+      }
+    };
 
-  // useEffect(() => {
-  //   // Fetch recent products
-  //   const fetchRecentProducts = async () => {
-  //     try {
-  //       const response = await fetch('http://127.0.0.1:5000/api/v1/products/recent');
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch recent products');
-  //       }
-  //       const data = await response.json();
-  //       setRecentProducts(data.products || []);
-  //     } catch (err) {
-  //       console.error('Error fetching recent products:', err);
-  //       setError('Failed to load recent products');
-  //       // Fallback to sample data for demo purposes
-  //       setRecentProducts(sampleProducts.slice(0, 4));
-  //     }
-  //   };
+    // Fetch recent products (latest 10 products)
+    const fetchRecentProducts = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/api/v1/products/recent");
+        const data = await response.json();
+        setRecent(data.products);
+        setIsLoading(false)
+      } catch (error) {
+        console.error("Error fetching recent products:", error);
+      }
+    };
 
-  //   // Fetch top-rated products
-  //   const fetchTopRatedProducts = async () => {
-  //     try {
-  //       const response = await fetch('http://127.0.0.1:5000/api/v1/products/top-rated');
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch top-rated products');
-  //       }
-  //       const data = await response.json();
-  //       setTopRatedProducts(data.products || []);
-  //     } catch (err) {
-  //       console.error('Error fetching top rated products:', err);
-  //       // Fallback to sample data for demo purposes
-  //       setTopRatedProducts(sampleProducts.slice(4, 8));
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
+    // Call all fetch functions
+    
+    fetchBestsellingProducts();
+    fetchRecentProducts();
+  }, []);
 
-  //   fetchRecentProducts();
-  //   fetchTopRatedProducts();
-  // }, []);
-
+  
   // Function to handle manual slide navigation
   const goToSlide = (slideIndex) => {
     setCurrentSlide(slideIndex);
@@ -107,162 +95,8 @@ const Home = () => {
     );
   };
 
-  // Sample products for fallback/demo
-  // const sampleProducts = [
-  //   {
-  //     id: 1,
-  //     name: 'Wireless Headphones',
-  //     price: 99.99,
-  //     image: '/images/products/headphones.jpg',
-  //     rating: 4.5,
-  //     description: 'High quality wireless headphones with noise cancellation'
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Smartphone X11',
-  //     price: 799.99,
-  //     image: '/images/products/smartphone.jpg',
-  //     rating: 4.7,
-  //     description: 'Latest flagship smartphone with amazing camera'
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Laptop Pro',
-  //     price: 1299.99,
-  //     image: '/images/products/laptop.jpg',
-  //     rating: 4.8,
-  //     description: 'Ultra-thin professional laptop with high performance'
-  //   },
-  //   {
-  //     id: 4,
-  //     name: 'Smart Watch',
-  //     price: 199.99,
-  //     image: '/images/products/smartwatch.jpg',
-  //     rating: 4.3,
-  //     description: 'Fitness tracker with heart rate monitor'
-  //   },
-  //   {
-  //     id: 5,
-  //     name: 'Bluetooth Speaker',
-  //     price: 79.99,
-  //     image: '/images/products/speaker.jpg',
-  //     rating: 4.9,
-  //     description: 'Portable speaker with deep bass and waterproof design'
-  //   },
-  //   {
-  //     id: 6,
-  //     name: 'Digital Camera',
-  //     price: 549.99,
-  //     image: '/images/products/camera.jpg',
-  //     rating: 4.6,
-  //     description: 'Professional DSLR camera with 4K video recording'
-  //   },
-  //   {
-  //     id: 7,
-  //     name: 'Gaming Console',
-  //     price: 399.99,
-  //     image: '/images/products/console.jpg',
-  //     rating: 4.8,
-  //     description: 'Next-gen gaming console with amazing graphics'
-  //   },
-  //   {
-  //     id: 8,
-  //     name: 'Wireless Earbuds',
-  //     price: 129.99,
-  //     image: '/images/products/earbuds.jpg',
-  //     rating: 4.7,
-  //     description: 'True wireless earbuds with premium sound quality'
-  //   }
-  // ];
+  
 
-  // Dummy data for testing
-  useEffect(() => {
-    const dummyProducts = [
-      {
-        id: 1,
-        name: "Product 1",
-        description: "This is a great product.",
-        price: 29.99,
-        image:
-          "https://image.hm.com/assets/hm/2d/4b/2d4b779f6998dd3a8637e87f177bf7abd1df52da.jpg?imwidth=768",
-      },
-      {
-        id: 2,
-        name: "Product 2",
-        description: "Another amazing product.",
-        price: 39.99,
-        image:
-          "https://image.hm.com/assets/hm/10/1a/101ac1155e90893f8791f11834cc3144096b6f16.jpg?imwidth=2160",
-      },
-      {
-        id: 3,
-        name: "Product 3",
-        description: "The best product in the market.",
-        price: 49.99,
-        image:
-          "https://image.hm.com/assets/hm/98/77/9877bdf3133aa386083b2427d63b2eef393dc447.jpg?imwidth=2160",
-      },
-      {
-        id: 4,
-        name: "Product 4",
-        description: "A must-have for everyone.",
-        price: 59.99,
-        image:
-          "https://image.hm.com/assets/hm/89/85/89857df55ca719607cbe97789480000452725007.jpg?imwidth=2160",
-      },
-      {
-        id: 5,
-        name: "Product 5",
-        description: "This product will change your life.",
-        price: 69.99,
-        image:
-          "https://image.hm.com/assets/hm/bf/61/bf617a8c06fb76c163e9ef118e467891f3420066.jpg?imwidth=1536",
-      },
-      {
-        id: 6,
-        name: "Product 6",
-        description: "This is a great product.",
-        price: 29.99,
-        image:
-          "https://image.hm.com/assets/hm/2d/4b/2d4b779f6998dd3a8637e87f177bf7abd1df52da.jpg?imwidth=768",
-      },
-      {
-        id: 7,
-        name: "Product 7",
-        description: "Another amazing product.",
-        price: 39.99,
-        image:
-          "https://image.hm.com/assets/hm/10/1a/101ac1155e90893f8791f11834cc3144096b6f16.jpg?imwidth=2160",
-      },
-      {
-        id: 8,
-        name: "Product 8",
-        description: "The best product in the market.",
-        price: 49.99,
-        image:
-          "https://image.hm.com/assets/hm/98/77/9877bdf3133aa386083b2427d63b2eef393dc447.jpg?imwidth=2160",
-      },
-      {
-        id: 9,
-        name: "Product 9",
-        description: "A must-have for everyone.",
-        price: 59.99,
-        image:
-          "https://image.hm.com/assets/hm/89/85/89857df55ca719607cbe97789480000452725007.jpg?imwidth=2160",
-      },
-      {
-        id: 10,
-        name: "Product 10",
-        description: "This product will change your life.",
-        price: 69.99,
-        image:
-          "https://image.hm.com/assets/hm/bf/61/bf617a8c06fb76c163e9ef118e467891f3420066.jpg?imwidth=1536",
-      },
-    ];
-
-    setRecentProducts(dummyProducts);
-    setIsLoading(false);
-  }, []);
 
   return (
     <>
@@ -343,9 +177,9 @@ const Home = () => {
                 },
               }}
             >
-              {recentProducts.map((product) => (
+              {recent && recent.map((product) => (
                 <SwiperSlide key={product.id}>
-                  <ProductCard product={product} />
+                  <ProductCard product={product} onViewDetails={handleViewDetails} />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -359,6 +193,8 @@ const Home = () => {
         </div>
       </section>
 
+
+    
       {/* Featured Banner */}
       <section className="featured-banner">
         <div className="banner-content">
@@ -368,28 +204,55 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Top Rated Products Section */}
-      {/* <section className="products-section top-rated-section">
-        <div className="section-header">
-          <h2>Top Rated Products</h2>
-          <p>Our customers' favorites</p>
-        </div>
-        
-        {isLoading ? (
-          <div className="loading">Loading products...</div>
-        ) : (
-          <div className="products-grid">
-            {topRatedProducts.map(product => (
-              <ProductCard 
-                key={product.id} 
-                product={product} 
-              />
-            ))}
-          </div>
-        )}
-      </section> */}
+      {/* Top Rated Products Section  */}
+     
+      <section className="products-section best-selling-section">
+  <div className="section-header">
+    <h2>Best Selling Products</h2>
+    <p>Our most popular picks</p>
+  </div>
 
-      {/* Newsletter Subscription */}
+  {isLoading ? (
+    <div className="loading">Loading products...</div>
+  ) : error ? (
+    <div className="error-message">{error}</div>
+  ) : (
+    <div className="products-slider">
+      <Swiper
+        spaceBetween={30}
+        slidesPerView={4}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        navigation={true}
+        modules={[Autoplay, Navigation]}
+        className="mySwiper"
+        breakpoints={{
+          320: { slidesPerView: 1 },
+          480: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
+        }}
+      >
+        {bestselling && bestselling.map((product) => (
+          <SwiperSlide key={product.id}>
+            <ProductCard product={product} onViewDetails={handleViewDetails} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  )}
+
+  <div className="view-more-container">
+    <a href="/product" className="view-more-btn">
+      View All Products
+    </a>
+  </div>
+</section> 
+
+
+      {/* /* Newsletter Subscription */ }
       <section className="newsletter-section">
         <div className="newsletter-container">
           <h3>Subscribe to Our Newsletter</h3>

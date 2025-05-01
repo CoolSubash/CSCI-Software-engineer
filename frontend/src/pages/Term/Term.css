@@ -1,0 +1,48 @@
+/* Terms Page Styles */
+.terms-page {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: auto;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .terms-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .terms-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .terms-header p {
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .terms-content {
+    font-size: 1rem;
+  }
+  
+  .terms-content h3 {
+    font-size: 1.6rem;
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+  
+  .terms-content p {
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .terms-header h2 {
+      font-size: 2rem;
+    }
+  
+    .terms-content h3 {
+      font-size: 1.4rem;
+    }
+  }
+  

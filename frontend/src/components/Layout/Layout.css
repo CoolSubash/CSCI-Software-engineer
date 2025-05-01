@@ -13,11 +13,57 @@
     /* padding: 20px; */
   }
   
-  footer {
-    background-color: #0a0909;
-    padding: 15px;
-    text-align: center;
-     color: aliceblue;
- 
+  .footer {
+    background-color: #222;
+    color: #ccc;
+    padding: 40px 20px;
+    font-size: 14px;
   }
+  
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+  }
+  
+  .company-info, .footer-links {
+    flex: 1 1 300px;
+  }
+  
+  .company-info h3 {
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  .footer-links h4 {
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-links ul li {
+    margin-bottom: 8px;
+  }
+  
+  .footer-links ul li a {
+    color: #ccc;
+    text-decoration: none;
+  }
+  
+  .footer-links ul li a:hover {
+    color: #fff;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+  }
+  
   
