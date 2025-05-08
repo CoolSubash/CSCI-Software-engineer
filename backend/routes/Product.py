@@ -89,22 +89,22 @@ def add_products():
 
 
 from flask import request
-
 @product_bp.route('', methods=['GET'])
 def get_all_products():
     try:
-        search = request.args.get('search', '')  # Get 'search' from URL query parameters
-        print(search)
+        search = request.args.get('search', '')
+
         if search:
-            # Case-insensitive search on product name (you can expand to brand or description)
-            products = Product.query.filter(Product.name.ilike(f"%{search}%")).all()
+            products = Product.query.filter(
+                Product.name.ilike(f"%{search}%")
+            ).order_by(Product.created_at.desc()).all()
         else:
-            products = Product.query.all()
+            products = Product.query.order_by(Product.created_at.desc()).all()
 
         products_list = [product.to_dict() for product in products]
 
         return jsonify({
-            "message": "Product fetch Successfully",
+            "message": "Products fetched successfully",
             "products": products_list
         })
 
@@ -114,13 +114,13 @@ def get_all_products():
             "error": "Internal Server Error",
             "message": str(e)
         }), 500
-   
+
 
 @product_bp.route('/bestselling', methods=['GET'])
 def get_bestselling_products():
     try:
         # Fetch products with price greater than 150 and order them by a "bestseller" criterion (e.g., rating or sales volume).
-        bestselling_products = Product.query.filter(Product.price > 50).limit(10).all()
+        bestselling_products = Product.query.filter(Product.price > 50).limit(7).all()
         
         bestselling_list = []
         for product in bestselling_products:
@@ -139,7 +139,7 @@ def get_bestselling_products():
 def get_recent_products():
     try:
         # Fetch the most recent 10 products based on the created date (assuming there's a 'created_at' field in Product).
-        recent_products = Product.query.order_by(Product.created_at.desc()).limit(10).all()
+        recent_products = Product.query.order_by(Product.created_at.desc()).limit(7).all()
         
         recent_list = []
         for product in recent_products:

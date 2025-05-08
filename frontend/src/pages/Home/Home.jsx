@@ -19,28 +19,50 @@ const Home = () => {
   };
 
   // Carousel images - replace with your actual product images
+  // const carouselImages = [
+  //   {
+  //     id: 1,
+  //     image:
+  //       "https://image.hm.com/content/dam/global_campaigns/season_01/women/startpage-assets/wk17/WS21L-4x5-women-startpage-wk17.jpg?imwidth=1870",
+  //     title: "New Spring Collection",
+  //     description: "Discover amazing deals up to 50% off",
+  //   },
+  //   {
+  //     id: 2,
+  //     image:
+  //       "https://c.media-amazon.com/images/I/81hLTHZw26L._AC_UL640_FMwebp_QL65_.jpg",
+  //     title: "Tech Gadgets Sale",
+  //     description: "Latest electronics and smart devices",
+  //   },
+  //   {
+  //     id: 3,
+  //     image: "https://c.media-amazon.com/images/I/71I+uNdsN+L._AC_SY879_.jpg",
+  //     title: "Fashion Trends",
+  //     description: "Exclusive styles for the season",
+  //   },
+  // ];
+
   const carouselImages = [
     {
       id: 1,
-      image:
-        "https://image.hm.com/content/dam/global_campaigns/season_01/women/startpage-assets/wk17/WS21L-4x5-women-startpage-wk17.jpg?imwidth=1870",
-      title: "New Spring Collection",
-      description: "Discover amazing deals up to 50% off",
+      image: "https://m.media-amazon.com/images/I/81yYJ3P3wIL._AC_UL640_FMwebp_QL65_.jpg",
+      title: "Modern Sofa",
+      description: "Sink into comfort with this stylish living room essential.",
     },
     {
       id: 2,
-      image:
-        "https://c.media-amazon.com/images/I/81hLTHZw26L._AC_UL640_FMwebp_QL65_.jpg",
-      title: "Tech Gadgets Sale",
-      description: "Latest electronics and smart devices",
+      image: "https://m.media-amazon.com/images/I/71kc6ePKsoL._AC_UY436_FMwebp_QL65_.jpg",
+      title: "Smart Television",
+      description: "Enjoy your favorite shows in crisp HD quality.",
     },
     {
       id: 3,
-      image: "https://c.media-amazon.com/images/I/71I+uNdsN+L._AC_SY879_.jpg",
-      title: "Fashion Trends",
-      description: "Exclusive styles for the season",
+      image: "https://m.media-amazon.com/images/I/71-V-N2TpoL._AC_UL640_FMwebp_QL65_.jpg",
+      title: "Artificial Plant",
+      description: "Add a natural touch without the upkeep.",
     },
   ];
+  
 
   useEffect(() => {
    
@@ -114,7 +136,7 @@ const Home = () => {
               <div className="carousel-content">
                 <h2>{slide.title}</h2>
                 <p>{slide.description}</p>
-                <button className="shop-now-btn">Shop Now</button>
+                <a href="/product"><button className="shop-now-btn">Shop Now</button></a>
               </div>
             </div>
           ))}

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import "./Contact.css"
+import React, { useState } from "react";
+import "./Contact.css";
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   });
 
   const handleChange = (e) => {
@@ -18,14 +18,23 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here (e.g., API call)
-    console.log('Form submitted:', formData);
+    alert("Form has been Sibmitted");
+    console.log("Form submitted:", formData);
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
   };
 
   return (
     <section className="contact-page">
       <div className="contact-header">
         <h2>Contact Us</h2>
-        <p>If you have any questions, concerns, or feedback, please don't hesitate to reach out to us.</p>
+        <p>
+          If you have any questions, concerns, or feedback, please don't
+          hesitate to reach out to us.
+        </p>
       </div>
 
       <div className="contact-form">
@@ -62,8 +71,16 @@ const Contact = () => {
             required
             placeholder="Your message here..."
           ></textarea>
-
-          <button type="submit" className="submit-btn">Send Message</button>
+       <div>
+        
+       </div>
+          <button
+            type="submit"
+            className="submit-btn"
+            style={{ marginTop: "17px" }}
+          >
+            Send Message
+          </button>
         </form>
       </div>
 
@@ -79,18 +96,18 @@ const Contact = () => {
       </div>
 
       <div className="map-container">
-      <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82836.08146235134!2d-80.9065!3d33.4918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88fddf0d222d51f1%3A0x218fce6e6328b2c7!2sOrangeburg%2C%20SC%2029120%2C%20USA!5e0!3m2!1sen!2snp!4v1714262128310!5m2!1sen!2snp"
-            width="100%"
-            height="400"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82836.08146235134!2d-80.9065!3d33.4918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88fddf0d222d51f1%3A0x218fce6e6328b2c7!2sOrangeburg%2C%20SC%2029120%2C%20USA!5e0!3m2!1sen!2snp!4v1714262128310!5m2!1sen!2snp"
+          width="100%"
+          height="400"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        ></iframe>
       </div>
     </section>
   );
-}
+};
 
 export default Contact;

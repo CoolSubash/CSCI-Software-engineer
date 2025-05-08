@@ -1,29 +1,104 @@
-.cart-page {
-    padding: 20px;
-  }
-  
-  .cart-item {
-    display: flex;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    padding: 15px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-  
-  .cart-item-image {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin-right: 20px;
-    border-radius: 8px;
-  }
-  
-  .cart-item-details {
-    flex: 1;
-  }
-  
-  .cart-item-details h3 {
-    margin-bottom: 10px;
-  }
-  
+/* cart-container styling */
+.cart-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+/* cart list */
+.cart-list {
+  list-style: none;
+  padding: 0;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.cart-item-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+/* cart item details */
+.cart-item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart-item-details h4 {
+  font-size: 1.25em;
+  margin: 0;
+  font-weight: bold;
+}
+
+.cart-item-price {
+  font-size: 1.1em;
+  margin: 5px 0;
+}
+
+.cart-item-total {
+  font-size: 1.1em;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* quantity control */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.quantity-control button {
+  padding: 5px 10px;
+  font-size: 1.2em;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.quantity-control span {
+  font-size: 1.2em;
+}
+
+/* checkout button */
+.checkout-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.checkout-button:hover {
+  background-color: #218838;
+}
+
+.checkout-button:active {
+  background-color: #1e7e34;
+}
+
+/* Empty cart message */
+p {
+  text-align: center;
+  font-size: 1.2em;
+}

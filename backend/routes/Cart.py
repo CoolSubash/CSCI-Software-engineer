@@ -21,7 +21,8 @@ def add_to_cart():
             cart = Cart(user_id=user_id)
             db.session.add(cart)
             db.session.commit()
-
+        
+      
         data = request.get_json()
         print(data)
         product_id = data['product_id']
@@ -61,14 +62,20 @@ def view_cart():
         cart = Cart.query.filter_by(user_id=user_id).first()
         
         if not cart:
-            return jsonify({"message": "Cart not found for this user"}), 404
+            cart = Cart(user_id=user_id)
+            db.session.add(cart)
+            db.session.commit()
+
 
         # Fetch all cart items for the user's cart
         cart_items = CartItem.query.filter_by(cart_id=cart.cart_id).all()
 
 
         if not cart_items:
-            return jsonify({"message": "No items found in the Cart"}), 404
+            return jsonify({
+                "message": "No items found in the Cart",
+                "cart_items": []   # Always return cart_items key
+            }), 200
 
         cart_list = []
         
@@ -83,7 +90,7 @@ def view_cart():
             
             cart_temp = {
                 'product_id': product.product_id,
-                'cart_item_id':item.cart_id,
+                'cart_item_id':item.cart_item_id,
                 'name': product.name,
                 'price': product.price,
                 'quantity': item.quantity,
@@ -107,7 +114,7 @@ def delete_cart_item(cart_item_id):
         user_id = claims['sub']['id']
         
         # Find the cart item
-        cart_item = CartItem.query.filter_by(cart_item_id=cart_item_id, cart_id=user_id).first()
+        cart_item = CartItem.query.filter_by(cart_item_id=cart_item_id).first()
         
         if not cart_item:
             return jsonify({"message": "Cart item not found"}), 404
