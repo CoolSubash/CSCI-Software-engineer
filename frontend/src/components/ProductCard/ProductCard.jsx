@@ -8,6 +8,7 @@ const ProductCard = ({ product, onViewDetails }) => {
   console.log(cartCount);
 
   const addtoCart = async (productId) => {
+    
     if (!token) {
       alert("Please login first to add to cart.");
       return;
@@ -23,15 +24,16 @@ const ProductCard = ({ product, onViewDetails }) => {
       });
 
       const cartData = await cartRes.json();
-      console.log(cartData);
+      // Debugging: Check the cart response
+      
       if (!cartRes.ok) {
         console.log(cartData.error || 'Failed to fetch cart');
         return;
       }
-
+      console.log('Cart Data:', cartData);
       // Step 2: Check if the product is already in the cart
       const existingItem = cartData.cart_items.find(item => item.product_id === productId);
-      console.log(existingItem);
+       
       if (existingItem) {
         console.log('Product already in cart:', existingItem);
         // If product is already in the cart, update the quantity

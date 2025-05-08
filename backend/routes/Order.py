@@ -75,26 +75,37 @@ def place_order():
 
 
 # get_user_order
-@order_bp.route("/my-orders",methods=["POST"])
+@order_bp.route("/my-orders", methods=["POST"])
 @jwt_required()
 def get_user_all_order():
     try:
         claims = get_jwt()
         user_id = claims['sub']['id']
-        user_role = claims['sub']['role']
-        order=CustomerOrder.query.filter_by(user_id=user_id).all()
-        if not Order:
-            return jsonify({"message":"No order Found"}),404
-        
-        
+
+        orders = CustomerOrder.query.filter_by(user_id=user_id).all()
+
+        if not orders:
+            return jsonify({"message": "No orders found"}), 404
+
         order_list = []
         for order in orders:
             order_items = OrderItem.query.filter_by(order_id=order.id).all()
-            items = [{
-                "product_id": item.product_id,
-                "quantity": item.quantity,
-                "price": item.price
-            } for item in order_items]
+            items = []
+
+            for item in order_items:
+                product = Product.query.get(item.product_id)
+                image_url = None
+
+                if product and product.product_image:
+                    image_url = product.product_image[0].image_url  # Using correct relationship
+
+                items.append({
+                    "product_id": product.product_id,
+                    "product_name": product.name,
+                    "image_url": image_url,
+                    "quantity": item.quantity,
+                    "price": item.price
+                })
 
             order_list.append({
                 "order_id": order.id,
@@ -104,13 +115,11 @@ def get_user_all_order():
                 "created_at": order.created_at
             })
 
-        return jsonify(order_list),200
+        return jsonify(order_list), 200
 
     except Exception as e:
         db.session.rollback()
-        return jsonify({"error":"Internal server Error","message":str(e)}),500
-
-
+        return jsonify({"error": "Internal Server Error", "message": str(e)}), 500
 
 # get_order_by_id
 @order_bp.route("/<int:order_id>",methods=["GET"])

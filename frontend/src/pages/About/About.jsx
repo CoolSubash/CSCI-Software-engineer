@@ -18,7 +18,7 @@ const About = () => {
         <h2>Our Story</h2>
         <p>
           CozyHome started as a dream in the heart of Orangeburg, South Carolina. 
-          Five lifelong friends — Sophia, Liam, Olivia, Noah, and Emma — shared one simple belief: 
+          Five lifelong friends — Kamara, Caleb, Subash, Kameron, and Justin — shared one simple belief: 
           <strong> everyone deserves a place they feel proud to call home. </strong>
         </p>
         <p>
@@ -37,7 +37,7 @@ const About = () => {
       <section className="team-section">
         <h2>Meet Our Founders</h2>
         <div className="team-grid">
-          {['Sophia', 'Liam', 'Olivia', 'Noah', 'Emma'].map((member, index) => (
+          {['Kamara', 'Caleb', 'Subash', 'Kameron', 'Justin'].map((member, index) => (
             <div key={index} className="team-member">
               <img src={`/images/team-${index + 1}.jpg`} alt={`${member}`} />
               <h4>{member}</h4>
